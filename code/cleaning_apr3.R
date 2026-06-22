@@ -1,6 +1,8 @@
 #Load Packages
 library(tidyverse)
 library(readxl)
+# All raw data is uploaded to hydroshare. Specific links for download will be added post publication to
+# anonymity for review process
 #SE####
 #import data####
 ##load reads from all primers ####
