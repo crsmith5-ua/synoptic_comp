@@ -180,9 +180,9 @@ ggplot2::ggsave("./graphs/wet_dry_box.pdf",dpi=800, width=5, height=4)
 ENVI_all <- read_csv("generated_data/ENVI_all.csv")
 
 #import synoptic diversity data
-apr3_nmds_data <- read_csv("data/generated_data/apr3_nmds_data.csv")
-apr3_nmds_data_gen <- read_csv("data/generated_data/apr3_nmds_data_gen.csv")
-apr3_taxa_div <- read_csv("data/generated_data/apr3_taxa_div.csv")
+apr3_nmds_data <- read_csv("generated_data/apr3_nmds_data.csv")
+apr3_nmds_data_gen <- read_csv("generated_data/apr3_nmds_data_gen.csv")
+apr3_taxa_div <- read_csv("generated_data/apr3_taxa_div.csv")
 
 
 apr3_taxa_div <- apr3_taxa_div %>%
@@ -232,7 +232,7 @@ ggplot2::ggsave("./graphs/plot_nmds_vec.png",dpi=800, width=10, height=5)
 
 ## b ####
 ####now make pie chart of %of each insect order and non-insects present for each watershed ####
-apr3_read_join_taxa_all <- read_csv("data/Final_metabarcoding/apr3_read_join_taxa_all.csv")
+apr3_read_join_taxa_all <- read_csv("generated_data/Final_metabarcoding/apr3_read_join_taxa_all.csv")
 apr3_read_join_taxa_all<- apr3_read_join_taxa_all%>%
   filter(tot_read>0)%>%
   filter(site!="STIC70")
@@ -329,7 +329,7 @@ anova(rich_mod)
 pairs(emmeans(rich_mod, ~watershed))
 
 ## c make beta diversity for each campaign- to species level ####
-bd_as_comp <- read_csv("data/generated_data/bd_as_comp.csv")
+bd_as_comp <- read_csv("generated_data/bd_as_comp.csv")
 
 bd_as_comp$reg<-factor(bd_as_comp$reg,ordered = T, levels=c("MW","GP","SE"))
 
