@@ -199,6 +199,8 @@ apr3_taxa_div$watershed<-factor(apr3_taxa_div$watershed, ordered=T, levels=c("MW
 NMDS<-metaMDS(apr3_nmds_data_gen[,-c(1:3)], distance = "jaccard", k=2, autotransform=F, trymax = 5000)
 NMDS 
 ####now to graph, pull points from NMDS function and make seperate dataframe with original descriptors####
+df_nmds<-data.frame(x=NMDS$points[,1],y=NMDS$points[,2])
+df_nmds<-cbind(apr3_nmds_data[,c(1:3)],df_nmds)
 ####add species and subset to p-values less than  .03 ####
 fit<-(envfit(NMDS,apr3_nmds_data_gen[,-c(1:3)], perm=999))
 #these could also be in a seperate dataframe
@@ -223,7 +225,7 @@ plot_nmds_vec <- ggplot(df_nmds, aes(x = x, y= y)) +
                aes(x = 0, xend =NMDS1, y = 0, yend = NMDS2),
                arrow = arrow(length = unit(0.25, "cm"))) +
   geom_label_repel(data = scrs.r2, aes(NMDS1, NMDS2, label=env.variables),
-                   size = 4, fill=alpha("gray",.85), max.overlaps = 20)+
+                   size = 4, fill=alpha("gray",.85), max.overlaps = 20, fontface="italic")+
   theme_few(base_size = 14)+
   theme(legend.position = "bottom")+
   guides(fill = guide_legend(nrow = 1));plot_nmds_vec
