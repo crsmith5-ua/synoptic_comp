@@ -201,6 +201,7 @@ NMDS
 ####now to graph, pull points from NMDS function and make seperate dataframe with original descriptors####
 df_nmds<-data.frame(x=NMDS$points[,1],y=NMDS$points[,2])
 df_nmds<-cbind(apr3_nmds_data[,c(1:3)],df_nmds)
+df_nmds$watershed <- factor(df_nmds$watershed, ordered=T, levels=c("MW","GP","SE"))
 ####add species and subset to p-values less than  .03 ####
 fit<-(envfit(NMDS,apr3_nmds_data_gen[,-c(1:3)], perm=999))
 #these could also be in a seperate dataframe
