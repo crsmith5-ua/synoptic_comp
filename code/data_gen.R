@@ -5,7 +5,7 @@ library(pacman)
 p_load(tidyverse, readxl, lubridate, adespatial, vegan)
 # Import data and clean a bit ####
 sampled_sites <- read_csv("generated_data/sampled_sites.csv")
-apr3_read_join_taxa_all <- read_csv("data/Final_metabarcoding/apr3_read_join_taxa_all.csv")
+apr3_read_join_taxa_all <- read_csv("generated_data/Final_metabarcoding/apr3_read_join_taxa_all.csv")
 apr3_read_join_taxa_all<- apr3_read_join_taxa_all%>%
   filter(tot_read>0)
 #remove extra sample and those with less than 4 taxa
@@ -32,7 +32,7 @@ apr3_nmds_data <- apr3_nmds_data %>%
   mutate(watershed = case_when (watershed == "TAL"~"SE",
                                 watershed == "KNZ" ~"GP",
                                 watershed == "GBJ" ~ "MW"))
-write.csv(apr3_nmds_data, "data/generated_data/apr3_nmds_data.csv", row.names = F)
+write.csv(apr3_nmds_data, "generated_data/apr3_nmds_data.csv", row.names = F)
 
 apr3_nmds_data_gen<-apr3_read_join_taxa_nmds%>%
   group_by(site,date, watershed, kingdom,phylum,class,order,family,genus)%>%
@@ -47,7 +47,7 @@ apr3_nmds_data_gen <- apr3_nmds_data_gen %>%
                                 watershed == "KNZ" ~"GP",
                                 watershed == "GBJ" ~ "MW"))
 
-write.csv(apr3_nmds_data_gen, "data/generated_data/apr3_nmds_data_gen.csv", row.names = F)
+write.csv(apr3_nmds_data_gen, "generated_data/apr3_nmds_data_gen.csv", row.names = F)
 # Make diversity metric dataset to save ####
 ## Richness ####
 apr3_taxa_div<-apr3_read_join_taxa_all%>%
@@ -142,7 +142,7 @@ bd_as_comp<-bd_as_comp_SE%>%
   bind_rows(bd_as_comp_MW)%>%
   pivot_longer(cols=BDtotal:'RichDif/BDtotal',names_to = "metric", values_to = "value")
 
-write.csv(bd_as_comp, "data/generated_data/bd_as_comp.csv", row.names = F)
+write.csv(bd_as_comp, "generated_data/bd_as_comp.csv", row.names = F)
 ## Now at genus level ####
 apr3_read_join_taxa_genus_SE<-apr3_read_join_taxa_all%>%
   filter(watershed=="TAL")%>%
@@ -233,14 +233,14 @@ bd_as_comp_gen<-bd_as_comp_SE%>%
   bind_rows(bd_as_comp_MW)%>%
   pivot_longer(cols=BDtotal:'RichDif/BDtotal',names_to = "metric", values_to = "value")
 
-write.csv(bd_as_comp_gen, "data/generated_data/bd_as_comp_gen.csv", row.names = F)
+write.csv(bd_as_comp_gen, "generated_data/bd_as_comp_gen.csv", row.names = F)
 
 #bind to apr3_taxa_div
 apr3_taxa_div <- apr3_taxa_div %>%
   left_join(lcbd)%>%
   left_join(lcbd_gen)
 
-write.csv(apr3_taxa_div, "data/generated_data/apr3_taxa_div.csv", row.names = F)
+write.csv(apr3_taxa_div, "generated_data/apr3_taxa_div.csv", row.names = F)
 
 # Gather all useful environmental data ####
 ENVI_SE_TAL <- read_excel("data/envi/all_but_knz/ENVI_SE_TAL.xlsx", 
